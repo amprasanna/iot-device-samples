@@ -1,5 +1,5 @@
 {
-  "name": "automating-device-diagnostics-&-Updates",
+  "name": "automating-device-diagnostics-Updates",
   "version": "0.0.2",
   "description": "A sample Java program that showcases automation of device diagnostics & updates with connected devices, that are connected to a gateway and are registered on Watson IoT Platform"
   "engines": {
