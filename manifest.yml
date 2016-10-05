@@ -9,8 +9,8 @@ applications:
 - services:
   - iotf-service
   - cloudantNoSQLDB
-  name: automating-device-diagnostics-&-Updates
-  host: automating-device-diagnostics-&-Updates
-  memory: 1024M
+  name: automate-device-diagnostics
+  host: automate-device-diagnostics
+  memory: 512M
   instances: 1
   disk_quota: 2048M
