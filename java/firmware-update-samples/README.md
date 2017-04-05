@@ -2,27 +2,31 @@
 
 These set of samples are intended to demonstrate ‘Firmware Upgrade’, one of the device management capabilities, as initiated by:
 
-**Device**
+1. **Device**
 
-**Platform**
+1. **Platform**
 
-**Platform with Background Download & Update**
+1. **Platform with Background Download & Update**
 
 Following stand-alone samples (present in this project) demonstrate Device Management samples through IBM Watson IoT Platform.
 
-**DeviceFirmwareSample**                                : Sample that publishes Device Information and Firmware details to Watson IoT Platform Dashboard. It updates the Device location and publishes Device event at every 5 second interval.
+**[DeviceInitiatedHandlerSample](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/DeviceInitiatedHandlerSample.java)**                        : Sample that performs Device Initiated Firmware Upgrade
 
-**Handler**                                             : Sample that obtains User input, defined against source of Firmware Upgrade
+**[PlatformInitiatedHandlerSample](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/PlatformInitiatedHandlerSample.java)**                      : Sample that performs Platform Initiated Firmware Upgrade
 
-**HTTPFirmwareDownload**                                : Sample that downloads Firmware (Debian package) from Cloudant NoSQL Database using the Document ID
+**[PlatformInitiatedWithBkgrndDwnldHandlerSample](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/PlatformInitiatedWithBkgrndDwnldHandlerSample.java)**       : Sample that performs Platform Initiated Firmware Upgrade, but in the background, without affecting the operations running in the foreground
 
-**DebianFirmwareUpdate**                                : Sample that Updates the Firmware (Debian package), as downloaded from the Cloudant NoSQL Database
+**[DeviceFirmwareSample](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/DeviceFirmwareSample.java)**                                : Sample that publishes Device Information and Firmware details to Watson IoT Platform Dashboard. It updates the Device location and publishes Device event at every 5 second interval.
 
-**DeviceInitiatedHandlerSample**                        : Sample that performs Device Initiated Firmware Upgrade
+**[ApplicationFirmwareRequestSample](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/client/application/ApplicationFirmwareRequestSample.java)**                                : Application Sample that helps initiate connection to Watson IoT Platform from the Client Side and helps trigger Firmware Update operation on the Device, through the WIoT Platform.
 
-**PlatformInitiatedHandlerSample**                      : Sample that performs Platform Initiated Firmware Upgrade
+**[Handler](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/Handler.java)**                                             : Sample that obtains User input, defined against source of Firmware Upgrade
 
-**PlatformInitiatedWithBkgrndDwnldHandlerSample**       : Sample that performs Platform Initiated Firmware Upgrade, but in the background, without affecting the operations running in the foreground
+**[HTTPFirmwareDownload](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/HTTPFirmwareDownload.java)**                                : Sample that downloads Firmware (Debian package) from Cloudant NoSQL Database using the Document ID
+
+**[DebianFirmwareUpdate](https://github.com/amprasanna/iot-device-samples/blob/master/java/firmware-update-samples/src/main/java/com/ibm/iotf/sample/devicemgmt/device/DebianFirmwareUpdate.java)**                                : Sample that Updates the Firmware (Debian package), as downloaded from the Cloudant NoSQL Database
+
+
 
 The samples are written using the [Java Client Library](https://github.com/ibm-watson-iot/iot-java) for IBM Watson IoT Platform that simplifies the interactions with the IBM Watson IoT Platform.
 
@@ -33,15 +37,15 @@ To build and run the sample, you must have the following set of Hardware and Sof
 
 **Software Requirements**
 
-Maven
+* Maven
 
-Git
+* Git
 
-IBM Bluemix Account
+* IBM Bluemix Account
 
 **Hardware Requirements**
 
-Raspberry Pi with at least 8 GB SD Card
+* Raspberry Pi with at least 8 GB SD Card
 
 ***
 
@@ -52,27 +56,27 @@ Follow the steps [in this recipe](https://developer.ibm.com/recipes/tutorials/ho
 **Device Credentials**
 
 
-Organization-ID = [Your Organization ID]
+     * Organization-ID = [Your Organization ID]
 
-Device-Type = [Your Device Type]
+     * Device-Type = [Your Device Type]
 
-Device-ID = [Your Device ID]
+     * Device-ID = [Your Device ID]
 
-Authentication-Method = token
+     * Authentication-Method = token
 
-Authentication-Token = [Your Device Token]
+     * Authentication-Token = [Your Device Token]
 
 **Application API-Key**
 
-id = [Unique Application ID]
+     * id = [Unique Application ID]
 
-Organization-ID = [Your Organization ID]
+     * Organization-ID = [Your Organization ID]
 
-Authentication-Method = [apikey]
+     * Authentication-Method = [apikey]
 
-API-Key = [API-Key]
+     * API-Key = [API-Key]
 
-Authentication-Token = [Authentication-Token]
+     * Authentication-Token = [Authentication-Token]
 
 We would need these details to connect the device to IBM Watson IoT Platform.
 
@@ -310,6 +314,45 @@ Monitor the execution, as the Firmware Update Sample showcases the following in 
 ### 
 
 In this section, the Firmware Upgrade operation, as initiated by the Platform was demonstrated to the completion, thus successfully concluding the objective set
+
+
+***
+
+
+### Build & Run the Platform Initiated Firmware Update sample with background execution
+
+
+Consider a scenario, where your device is currently capturing data from various sensors and is publishing the events to Watson IoT Platform, parallelly, it is also handling data cleansing operations, sorting operations. The OS has it's own set of processess running, each of them taking their own share of processing capacity. In such situations, you would always wish to push few operations that could be run in the background, by assigning them to daemon processes and have them executed behind the scenes, whenever, there is less burden on the processor.
+
+To help assist in such scenarios, you can make use of the Sample **PlatformInitiatedWithBkgrndDwnldHandlerSample**, that is specifically designed, to be implemented in tight situations, where certain jobs are of high priority and are critical to the application. Firmware Download and Firmware Update operations are assigned to daemon threads and are executed in the background, without hampering the performance of the processes running in the foreground.
+
+You can make use of the execution code and steps mentioned in the earlier sections, to experience the Platform Initiated Firmware Update with Background Execution Sample, by setting the value of the parameter **option** to **PlatformBackground** in the DMDeviceSample.properties file, as located under target/classes.
+
+
+***
+
+
+### 
+
+In this section, the Firmware Upgrade operation, as initiated by the Platform, but with the execution happening in the background, was demonstrated to the completion, thus successfully concluding the objective set
+
+
+***
+
+
+### Experience Firmware Roll Back and Firmware Factory Reset
+
+
+The Firmware Update Samples discussed here, are also equipped to handle to extended Firmware Management capabilities:
+
+* Firmware Roll Back
+* Firmware Factory Reset 
+
+In scenarios, where the uploaded Firmware is corrupt or damaged or in scenarios where the downloaded Firmware is incomplete, say missing checksum, etc, the Firmware Update operation is bound to fail. In such scenarios, based on the situation, the code handles the Firmware Roll Back and Factory Reset.
+
+**_Firmware Roll Back_** is the first preferred fall back mechanism, where in, if the Firmware Update operation fails to successfully apply the latest firmware, then, the priority is to first retain the existing setup. The Roll Back operation does the same, i.e it applies the existing the version of the Firmware on to the Device and updates the WIoTP Dashboard about the status message.
+
+The success of the Firmware Roll Back operation depends on the availability of the Firmware build package, being made available at a given location for usage. If the build package is not available, then the next preferred fall back mechanism is **_Firmware Factory Reset_**. In this scenario, the Firmware Update operation directly applies the Factory Version of the Firmware, i.e v1.0.1 on to the Device.
 
 
 ***
