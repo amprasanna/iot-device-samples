@@ -22,6 +22,7 @@
 package com.ibm.iotf.sample.client.device;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -29,12 +30,27 @@ import org.eclipse.paho.client.mqttv3.MqttException;
 import com.google.gson.JsonObject;
 import com.ibm.iotf.client.device.DeviceClient;
 
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import org.bouncycastle.openssl.PEMReader;
+
 public class RegisteredDeviceEventPublishPropertiesFile {
+	private final static String PROPERTIES_FILE_NAME = "/device.properties";
 
 	public static void main(String[] args) throws MqttException {
 		//Provide the device specific data, as well as Auth-key and token using Properties class
 		//A Sample properties file is provided in the src folder
-		Properties options = DeviceClient.parsePropertiesFile(new File("C:\\temp\\device.properties"));
+		
+		/**
+		  * Load device properties
+		  */
+		Properties options = new Properties();
+		try {
+			options.load(RegisteredDeviceEventPublishPropertiesFile.class.getResourceAsStream(PROPERTIES_FILE_NAME));
+		} catch (IOException e1) {
+			System.err.println("Not able to read the properties file, exiting..");
+			System.exit(-1);
+		}
+		
 
 		DeviceClient myClient = null;
 		try {
