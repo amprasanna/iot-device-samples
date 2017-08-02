@@ -23,6 +23,8 @@ To build and run the sample, you must have the following installed:
 
 ### Register Device in IBM Watson IoT Platform
 
+**Token based Authentication**
+
 Follow the steps in [this recipe](https://developer.ibm.com/recipes/tutorials/how-to-register-devices-in-ibm-iot-foundation/) to register your device in Watson IoT Platform if not registered already. And copy the registration details, like the following,
 
 * Organization-ID = [Your Organization ID]
@@ -31,7 +33,20 @@ Follow the steps in [this recipe](https://developer.ibm.com/recipes/tutorials/ho
 * Authentication-Method = token
 * Authentication-Token = [Your Device Token]
 
-We need these details to connect the device to IBM Watson IoT Platform.
+We need these details to connect the device to IBM Watson IoT Platform. These details help authenticate the connection using Token Authentication mechanism.
+
+**Client side Certificate Authentication**
+
+Should you choose to enhance the security on the Authentication process, then, in addition to the Token based authentication mechanism, Watson IoT Platform allows you to make use of Client side Certificates and initiate Certificate based authentication mechanism.
+
+Following are the set of connection properties that needs to be configured, to allow the Watson IoT Platform to recognize and handle Certificate based authentication against Watson IoT Platform
+
+* Use-Secure-Certificate = [True/False]
+* Server-Certificate = [Path to Server Certificate File]
+* Client-Certificate = [Path to Client Certificate File]
+* Client-Key = [Path to Client Key File]
+* Certificate-Password = [Password]
+
 
 ----
 
